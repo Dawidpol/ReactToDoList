@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
+import './ToDoList.css';
 
+const ToDoTitle = ({toDosCounter}) => {
+  return (
+    <h2 className="to-do-title">To Do ({toDosCounter}):</h2>
+  );
+}
 
 const AddToDoForm = ({addToDo}) => {
-    let input; 
+  let input; 
 
-    return (
-    <form onSubmit={(e) => {
+  return (
+        <form onSubmit={(e) => {
               e.preventDefault();
               addToDo(input.value);
               input.value = '';
             }
           }>
-
-      <input ref={node => {input = node;}} />
-      <input type="submit" value="Submit"/>
-      <br />
-</form>
-    );
+    <label className="add-to-do-label">Add to do:</label><input ref={node => {input = node;}} />
+    <br />
+  </form>
+  );
 }
 
 const ToDo = ({toDo, remove}) => {
   return (
-    <div>
-      {toDo.title}
+    <div className="to-do" >
+      <p>{toDo.title}</p>
       <button onClick={() => remove(toDo.id)}>Remove</button>
     </div>
   )
@@ -32,22 +36,25 @@ class ToDoList extends Component {
   constructor(props){
     super(props);
     this.state = {
-      toDos: [{title: 'test', id: -1}]
+      toDos: []
     }
     this.toDosCounter = 0;
+    this.toDosIds = 0;
   }
 
   addToDo(title){
     const toDos = this.state.toDos;
 
     toDos.push({
-      id: this.toDosCounter++, 
+      id: this.toDosIds++, 
       title: title
     });
 
     this.setState({
       toDos: toDos
     });
+
+    this.toDosCounter++;
   }
 
   remove(id){
@@ -66,6 +73,8 @@ class ToDoList extends Component {
     this.setState({
       toDos: toDos
     });
+
+    this.toDosCounter--;
   }
 
   render() {
@@ -78,7 +87,8 @@ class ToDoList extends Component {
     return (
       <div>
         <AddToDoForm addToDo={this.addToDo.bind(this)}/>
-        <ul>
+        <ToDoTitle toDosCounter={this.toDosCounter} />
+        <ul className="to-do-list">
           {listItems}
         </ul>
       </div>
