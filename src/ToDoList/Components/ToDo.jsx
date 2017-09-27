@@ -19,6 +19,7 @@ class ToDo extends Component{
           <p className={this.state.done ? 'mark-done' : null}>{this.toDo.title}</p>
           <button onClick={() => this.markToDo(this.toDo.id)}>{this.state.done ? 'Not Done' : 'Done'}</button>
           <button onClick={() => this.remove(this.toDo.id)}>Remove</button>
+          
         </div>
       )
   }

@@ -91,16 +91,17 @@ class ToDoList extends Component {
 
   render() {
     const listItemsNotDone = this.state.toDos.filter((toDo) => {return toDo.done === false;}).map((toDo) =>
-      <li>
+      <li key={toDo.id}>
         <ToDo toDo={toDo} remove={this.remove.bind(this)} markToDo={this.markToDo.bind(this)}/>
       </li>
     );
 
     const listItemsDone = this.state.toDos.filter((toDo) => {return toDo.done === true;}).map((toDo) =>
-      <li>
+      <li key={toDo.id}>
         <ToDo toDo={toDo} remove={this.remove.bind(this)} markToDo={this.markToDo.bind(this)}/>
       </li>
     );
+
 
     return (
       <div>
